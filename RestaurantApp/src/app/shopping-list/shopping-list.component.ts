@@ -9,15 +9,17 @@ import { IngredientsService } from '../services/Ingredients.service';
 })
 export class ShoppingListComponent implements OnInit {
   ingredients: Ingredient[];
+
   constructor(private ingredientsService: IngredientsService) { }
 
   ngOnInit() {
-  this.ingredients = this.ingredientsService.getIngredients();
-  this.ingredientsService.ingredientsChanged.subscribe(
-      ((ingredients: Ingredient[]) => {
-        this.ingredients = ingredients;
-      })
-    );
+    this.ingredients = this.ingredientsService.getIngredients();
+    this.ingredientsService.ingredientsChanged
+      .subscribe(
+        ((ingredients: Ingredient[]) => {
+          this.ingredients = ingredients;
+        })
+      );
   }
 
 }

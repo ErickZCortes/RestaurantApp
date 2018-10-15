@@ -1,11 +1,11 @@
-import {Ingredient} from '../shared/ingredient.model';
+import { Ingredient } from '../shared/ingredient.model';
 import { EventEmitter } from '@angular/core';
 
 export class IngredientsService {
     ingredientsChanged = new EventEmitter<Ingredient[]>();
     private ingredients: Ingredient[] = [
-    new Ingredient('Tomatoes', 5),
-    new Ingredient('Apple', 3)
+        new Ingredient('Tomatoes', 5),
+        new Ingredient('Apple', 3)
     ];
 
     getIngredients() {
@@ -17,4 +17,11 @@ export class IngredientsService {
         this.ingredientsChanged.emit(this.ingredients.slice());
 
     }
+    addIngredients(auxIngredients: Ingredient[]) {
+        for (const i of auxIngredients) {
+            this.ingredients.push(i);
+        }
+        this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+    // find()
 }
