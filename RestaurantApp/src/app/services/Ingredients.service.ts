@@ -15,13 +15,12 @@ export class IngredientsService {
     addIngredient(ingredient: Ingredient) {
         this.ingredients.push(ingredient);
         this.ingredientsChanged.emit(this.ingredients.slice());
-
     }
     addIngredients(auxIngredients: Ingredient[]) {
         for (const i of auxIngredients) {
             this.ingredients.push(i);
+
         }
         this.ingredientsChanged.emit(this.ingredients.slice());
     }
-    // find()
 }
