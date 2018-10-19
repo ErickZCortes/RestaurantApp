@@ -1,5 +1,6 @@
 import { Ingredient } from '../shared/ingredient.model';
 import { EventEmitter } from '@angular/core';
+import { findLast } from '@angular/compiler/src/directive_resolver';
 
 export class IngredientsService {
     ingredientsChanged = new EventEmitter<Ingredient[]>();
@@ -18,8 +19,12 @@ export class IngredientsService {
     }
     addIngredients(auxIngredients: Ingredient[]) {
         for (const i of auxIngredients) {
-            this.ingredients.push(i);
-
+            const exist = this.ingredients.find(x => x.name === i.name);
+            if (exist) {
+                const acum = exist.amount += i.amount;
+            } else {
+                this.ingredients.push(i);
+            }
         }
         this.ingredientsChanged.emit(this.ingredients.slice());
     }
