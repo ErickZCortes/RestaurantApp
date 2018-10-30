@@ -18,6 +18,10 @@ export class IngredientsService {
     getIngredient(index: number) {
         return this.ingredients[index];
     }
+    updateIngredient(index: number, ingredient: Ingredient) {
+        this.ingredients[index] = ingredient;
+        this.ingredientsChanged.emit(this.ingredients.slice());    
+    }
 
     addIngredient(ingredient: Ingredient) {
         this.ingredients.push(ingredient);
