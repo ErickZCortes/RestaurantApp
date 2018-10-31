@@ -4,7 +4,8 @@ import { findLast } from '@angular/compiler/src/directive_resolver';
 import { Subject } from 'rxjs';
 
 export class IngredientsService {
-    ingredientsChanged = new EventEmitter<Ingredient[]>();
+    // ingredientsChanged = new EventEmitter<Ingredient[]>();
+    ingredientsChanged = new Subject<Ingredient[]>();
     startedEditing = new Subject<number>();
     private ingredients: Ingredient[] = [
         new Ingredient('Tomatoes', 5),
@@ -20,12 +21,12 @@ export class IngredientsService {
     }
     updateIngredient(index: number, ingredient: Ingredient) {
         this.ingredients[index] = ingredient;
-        this.ingredientsChanged.emit(this.ingredients.slice());    
+        this.ingredientsChanged.next(this.ingredients.slice());
     }
 
     addIngredient(ingredient: Ingredient) {
         this.ingredients.push(ingredient);
-        this.ingredientsChanged.emit(this.ingredients.slice());
+        this.ingredientsChanged.next(this.ingredients.slice());
     }
 
     addIngredients(auxIngredients: Ingredient[]) {
@@ -37,6 +38,6 @@ export class IngredientsService {
                 this.ingredients.push(i);
             }
         }
-        this.ingredientsChanged.emit(this.ingredients.slice());
+        this.ingredientsChanged.next(this.ingredients.slice());
     }
 }
