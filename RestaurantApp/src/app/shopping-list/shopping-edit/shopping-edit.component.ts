@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef,OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { IngredientsService } from '../../services/Ingredients.service';
 import { Ingredient } from '../../shared/ingredient.model';
 import { NgForm } from '@angular/forms';
@@ -28,9 +28,9 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       });
     });
   }
-ngOnDestroy() {
-  this.subscription.unsubscribe();
-}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   onAddItem(form: NgForm) {
     // const name = this.nameInputRef.nativeElement.value;
@@ -38,10 +38,19 @@ ngOnDestroy() {
     const value = form.value;
     const newIngredient = new Ingredient(value.name, value.amount);
 
-    if(this.editMode) {
-            this.ingredientsService.updateIngredient(this.indexEditedItem, newIngredient);
-    } else{
-    this.ingredientsService.addIngredient(newIngredient);
+    if (this.editMode) {
+      this.ingredientsService.updateIngredient(this.indexEditedItem, newIngredient);
+    } else {
+      this.ingredientsService.addIngredient(newIngredient);
     }
+    this.editMode = false;
+    this.clear();
+  }
+  onDelete() {
+    this.ingredientsService.onDelete(this.indexEditedItem);
+    this.clear();
+  }
+  clear() {
+    this.slForm.reset();
   }
 }
